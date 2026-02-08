@@ -13,6 +13,31 @@ body{
     background-color: #86A8E7;
 }
 
+.alert {
+  position: fixed;
+  top: 20px;
+  text-align: center;
+
+  background-color: #222;
+  color: #fff;
+
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  opacity: 0;
+  transform: translateY(-10px);
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .container{
     text-align: center;
     background-color: #fff;

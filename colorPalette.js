@@ -1,5 +1,6 @@
 const generateBtn = document.querySelector('.generate-btn');
 const paletteContainer = document.querySelector('.palette-container');
+const alertBox = document.querySelector(".alert");
 
 generateBtn.addEventListener('click', generatePalette); //generates a new palette when the button is clicked
 
@@ -49,7 +50,7 @@ paletteContainer.addEventListener("click", function (e) {
             .querySelector(".color-code").textContent;
     navigator.clipboard
       .writeText(colorCode)
-      .then(() => showCopySuccess(e.target));
+      .then(() => showCopySuccess(e.target, colorCode));
   }
 
   // Click on color block
@@ -60,23 +61,27 @@ paletteContainer.addEventListener("click", function (e) {
 
     navigator.clipboard
       .writeText(colorCode)
-      .then(() => showCopySuccess(icon));
+      .then(() => showCopySuccess(icon, colorCode));
   }
 
   // Click directly on hex code
   else if (e.target.classList.contains("color-code")) {
     const box = e.target.parentElement;
     const icon = box.querySelector(".copy-btn");
+    const colorCode = e.target.textContent;
 
     navigator.clipboard
       .writeText(e.target.textContent)
-      .then(() => showCopySuccess(icon));
+      .then(() => showCopySuccess(icon, colorCode));
   }
 });
 
-function showCopySuccess(element) { //shows check after copying the color code
+function showCopySuccess(element,colorCode) { //shows check after copying the color code
   element.classList.remove("far", "fa-copy");
   element.classList.add("fas", "fa-check");
+
+  alertBox.textContent = `${colorCode} copied to clipboard!`;
+  alertBox.classList.add("show");
 
   element.style.color = "#48bb78";
 
@@ -84,5 +89,6 @@ function showCopySuccess(element) { //shows check after copying the color code
     element.classList.remove("fas", "fa-check");
     element.classList.add("far", "fa-copy");
     element.style.color = "";
+    alertBox.classList.remove("show");
   }, 1500);
 }
